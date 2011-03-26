@@ -1,0 +1,12 @@
+{
+  "name": "kata",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.4.2"
+  },
+  "dependencies": {
+    "jasmine": "2.0.0beta2"
+  }
+}
+
