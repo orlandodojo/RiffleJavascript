@@ -1,55 +1,51 @@
 function Riffle(rounds) {
 
+  var _rounds = rounds
+    , _reloadingMechanism;
+
   function _setRound(roundNumber){
     _rounds = roundNumber;
     return true;
   }
 
-  var _rounds = rounds
-    , _reloadingMechanism;
 
   // Encapsulation in JS (cool)
-  return function(){
-    return {
 
-      fire: function(){
-        if(_reloadingMechanism.isReloading()){
-          throw new Error("still loading")
-        }
-        if(_rounds>0){
-          return "fire";
-        }else{
-          return "click";
-        }
-      },
-
-      getRounds: function(){
-        return _rounds;
-      },
-      setReloadingMechanism: function(mechanism){
-        _reloadingMechanism = mechanism;
-      },
-      reload: function(roundNumber){
-        if (_rounds>0){
-          return false
-        }else{
-          return _setRound(roundNumber);
-        }
-      }
+  this.fire = function(){
+    if(_reloadingMechanism.isReloading()){
+      throw new Error("still loading")
     }
-  }();
+    if(_rounds > 0){
+      return "fire";
+    }else{
+      return "click";
+    }
+  };
+
+  this.getRounds = function(){ return _rounds; };
+
+  this.setReloadingMechanism = function(mechanism){
+    _reloadingMechanism = mechanism;
+  };
+
+  this.reload =  function(roundNumber){
+    if (_rounds>0){
+      return false
+    }else{
+      return _setRound(roundNumber);
+    }
+  };
+
 }
 
 function ReloadingMechanism(){
   var isLoaded=true;
-  
-  return function(){
-    return{
-      reload: function(callBack){
-        return callBack();
-      }
+
+  return{
+    reload: function(callBack){
+      return callBack();
     }
-  }();
+  }
 }
 
 describe('Shooting with the riffle', function() {
